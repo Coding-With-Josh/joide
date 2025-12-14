@@ -44,7 +44,7 @@ export const Footer = () => {
                 key={label}
                 href={href}
                 target="_blank"
-                rel="noreferrer"
+                rel="noopener noreferrer"
                 className="flex items-center gap-2 rounded-full border dark:border-black/25 border-white/25 px-3 py-1.5 text-sm font-medium tracking-tight dark:text-black text-white transition-all duration-200 hover:scale-[1.02] dark:hover:bg-black hover:bg-white dark:hover:text-white hover:text-black"
               >
                 <Icon icon={icon} className="h-4 w-4" />

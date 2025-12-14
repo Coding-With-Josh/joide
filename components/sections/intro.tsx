@@ -45,6 +45,7 @@ export const Intro = () => {
                   key={label} 
                   className="rounded-full border border-black/15 dark:border-white/20 px-3 py-2 text-sm font-medium tracking-tight transition-all duration-200 hover:scale-[1.02] hover:bg-black hover:text-white dark:hover:bg-white dark:hover:text-black" 
                   target="_blank"
+                  rel="noopener noreferrer"
                   onClick={() => trackClick(eventType, { platform: label })}
                 >
                   <button

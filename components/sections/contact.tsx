@@ -43,6 +43,7 @@ export const Contact = () => {
               <Link
                 href="mailto:codewithjoshh@gmail.com"
                 target="_blank"
+                rel="noopener noreferrer"
                 className="flex items-center gap-2 w-fit rounded-full border border-black/10 dark:border-white/15 bg-black text-white px-7 md:px-3 py-1.5 text-sm md:text-base tracking-tighter font-medium shadow-lg transition-all duration-200 hover:scale-[1.02] dark:bg-white dark:text-black"
                 onClick={() => trackClick("email_click")}
               >
@@ -52,6 +53,7 @@ export const Contact = () => {
               <Link
                 href="https://calendly.com/joide_fm"
                 target="_blank"
+                rel="noopener noreferrer"
                 className="flex items-center gap-2 rounded-full border border-black/20 dark:border-white/20 bg-transparent px-3 py-1.5 text-sm md:text-base tracking-tighter font-medium transition-all duration-200 hover:bg-black hover:text-white hover:border-black dark:hover:bg-white dark:hover:text-black"
                 onClick={() => trackClick("book_call_click")}
               >

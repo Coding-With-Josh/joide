@@ -42,7 +42,9 @@ export const BlogCards = () => {
         <div className="flex items-center justify-center py-16">
           <div className="flex flex-col items-center gap-3">
             <div className="w-8 h-8 border-2 border-black/20 dark:border-white/20 border-t-black dark:border-t-white rounded-full animate-spin" />
-            <p className="text-sm text-muted-foreground tracking-tighter">Loading posts...</p>
+            <p className="text-sm text-muted-foreground tracking-tighter">
+              Loading posts...
+            </p>
           </div>
         </div>
       </section>
@@ -114,7 +116,8 @@ export const BlogCards = () => {
               <p className="inline-flex items-center gap-2 text-center">
                 <span className="inline-block animate-pulse">✨</span>
                 <span className="font-medium">
-                  I&apos;m crafting thoughtful posts that will be worth your time.
+                  I&apos;m crafting thoughtful posts that will be worth your
+                  time.
                 </span>
                 <span className="inline-block animate-pulse delay-75">✨</span>
               </p>
@@ -145,52 +148,54 @@ export const BlogCards = () => {
         </div>
 
         <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-          {posts.map(({ id, title, summary, date, readTime, tags, cover, slug }) => (
-            <Link
-              key={id}
-              href={`/blog/${slug}`}
-              className="group relative overflow-hidden rounded-3xl border border-black/10 dark:border-white/15 bg-white dark:bg-neutral-900 shadow-[0_20px_80px_-50px_rgba(0,0,0,0.45)] transition-transform duration-200 hover:-translate-y-1"
-            >
-              <div className="relative h-130 overflow-hidden">
-                <Image
-                  src={cover}
-                  alt={title}
-                  fill
-                  className="object-cover transition-transform duration-300 group-hover:scale-105"
-                  sizes="(min-width: 1024px) 33vw, 100vw"
-                />
-                <div className="absolute inset-0 bg-linear-to-b from-black/10 via-transparent to-black/30" />
+          {posts.map(
+            ({ id, title, summary, date, readTime, tags, cover, slug }) => (
+              <Link
+                key={id}
+                href={`/blog/${slug}`}
+                className="group relative overflow-hidden rounded-3xl border border-black/10 dark:border-white/15 bg-white dark:bg-neutral-900 shadow-[0_20px_80px_-50px_rgba(0,0,0,0.45)] transition-transform duration-200 hover:-translate-y-1"
+              >
+                <div className="relative aspect-[4/3] w-full overflow-hidden">
+                  <Image
+                    src={cover}
+                    alt={title}
+                    fill
+                    className="object-cover transition-transform duration-300 group-hover:scale-105"
+                    sizes="(min-width: 1024px) 33vw, 100vw"
+                  />
+                  <div className="absolute inset-0 bg-linear-to-b from-black/10 via-transparent to-black/30" />
 
-                <div className="absolute inset-x-3 bottom-3 rounded-2xl border border-black/10 dark:border-white/15 bg-white text-black dark:bg-black dark:text-white px-4 py-4 shadow-lg backdrop-blur">
-                  <div className="flex items-center justify-between text-[11px] uppercase tracking-[0.18em] text-muted-foreground">
-                    <span>{date}</span>
-                    <span>{readTime}</span>
-                  </div>
-                  <h3 className="mt-2 text-lg font-serif md:text-xl font-semibold tracking-wide">
-                    {title}
-                  </h3>
-                  <p className="mt-1 text-sm text-muted-foreground tracking-tighter font-medium">
-                    {summary}
-                  </p>
-                  <div className="mt-3 flex items-center justify-between gap-2">
-                    <div className="flex flex-wrap gap-2">
-                      {tags.map((tag) => (
-                        <span
-                          key={tag}
-                          className="rounded-full border border-black/15 dark:border-white/25 bg-white/80 dark:bg-neutral-900/60 px-2.5 py-1 text-[11px] font-medium tracking-tight"
-                        >
-                          {tag}
-                        </span>
-                      ))}
+                  <div className="absolute inset-x-3 bottom-3 rounded-2xl border border-black/10 dark:border-white/15 bg-white text-black dark:bg-black dark:text-white px-4 py-4 shadow-lg backdrop-blur">
+                    <div className="flex items-center justify-between text-[11px] uppercase tracking-[0.18em] text-muted-foreground">
+                      <span>{date}</span>
+                      <span>{readTime}</span>
                     </div>
-                    <span className="flex h-9 min-w-[80px] items-center justify-center rounded-full border border-black/20 dark:border-white/25 bg-transparent text-sm font-medium tracking-tight transition-all duration-200 hover:scale-[1.02] hover:bg-black hover:text-white dark:hover:bg-white dark:hover:text-black">
-                      Read
-                    </span>
+                    <h3 className="mt-2 text-lg font-serif md:text-xl font-semibold tracking-wide">
+                      {title}
+                    </h3>
+                    <p className="mt-1 text-sm text-muted-foreground tracking-tighter font-medium">
+                      {summary}
+                    </p>
+                    <div className="mt-3 flex items-center justify-between gap-2">
+                      <div className="flex flex-wrap gap-2">
+                        {tags.map((tag) => (
+                          <span
+                            key={tag}
+                            className="rounded-full border border-black/15 dark:border-white/25 bg-white/80 dark:bg-neutral-900/60 px-2.5 py-1 text-[11px] font-medium tracking-tight"
+                          >
+                            {tag}
+                          </span>
+                        ))}
+                      </div>
+                      <span className="flex h-9 min-w-[80px] items-center justify-center rounded-full border border-black/20 dark:border-white/25 bg-transparent text-sm font-medium tracking-tight transition-all duration-200 hover:scale-[1.02] hover:bg-black hover:text-white dark:hover:bg-white dark:hover:text-black">
+                        Read
+                      </span>
+                    </div>
                   </div>
                 </div>
-              </div>
-            </Link>
-          ))}
+              </Link>
+            )
+          )}
         </div>
       </div>
     </section>

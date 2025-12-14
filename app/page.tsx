@@ -10,7 +10,7 @@ import type { Metadata } from "next";
 const baseUrl = process.env.NEXT_PUBLIC_BASE_URL || "https://joide.me";
 
 export const metadata: Metadata = {
-  title: "Home",
+  title: "Joide - Blockchain & Software Developer | Joshua Idele",
   description:
     "Joshua Idele (Joide) - Blockchain developer and software engineer. Building innovative Web3 solutions, DeFi protocols, and modern web applications. Explore my projects, blog posts, and achievements.",
   keywords: [
@@ -74,11 +74,13 @@ export default function Home() {
         dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
       />
       <Nav />
-      <Intro />
-      <CaseStudies />
-      <Achievements />
-      <Stack />
-      <Contact />
+      <main>
+        <Intro />
+        <CaseStudies />
+        <Achievements />
+        <Stack />
+        <Contact />
+      </main>
       <Footer />
     </div>
   );

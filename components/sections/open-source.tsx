@@ -58,7 +58,7 @@ export const OpenSource = () => {
               key={name}
               href={link}
               target="_blank"
-              rel="noreferrer"
+              rel="noopener noreferrer"
               className="relative overflow-hidden rounded-2xl border border-black/10 dark:border-white/15 bg-white dark:bg-neutral-900 p-5 shadow-[0_15px_60px_-40px_rgba(0,0,0,0.4)] transition-transform duration-200 hover:-translate-y-1 hover:border-black/20 dark:hover:border-white/30"
             >
               <div className="flex items-start justify-between gap-2">
