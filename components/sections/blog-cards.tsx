@@ -114,7 +114,7 @@ export const BlogCards = () => {
               <p className="inline-flex items-center gap-2 text-center">
                 <span className="inline-block animate-pulse">✨</span>
                 <span className="font-medium">
-                  I'm crafting thoughtful posts that will be worth your time.
+                  I&apos;m crafting thoughtful posts that will be worth your time.
                 </span>
                 <span className="inline-block animate-pulse delay-75">✨</span>
               </p>

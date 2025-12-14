@@ -27,12 +27,83 @@ const mono = Geist_Mono({
   subsets: ["latin"],
 });
 
+const baseUrl = process.env.NEXT_PUBLIC_BASE_URL || "https://joide.me";
+
 export const metadata: Metadata = {
-  title: "Joshua Idele's Personal Website",
+  metadataBase: new URL(baseUrl),
+  title: {
+    default: "Joide - Blockchain & Software Developer",
+    template: "%s | Joide",
+  },
   description:
-    "Joshua Idele, popularly known as Joide, is a 15 year old blockchain developer and a software engineer.",
+    "Joshua Idele, popularly known as Joide, is a blockchain developer and software engineer. Building innovative solutions in Web3, DeFi, and modern web applications.",
+  keywords: [
+    "Joshua Idele",
+    "Joide",
+    "Blockchain Developer",
+    "Software Engineer",
+    "Web3",
+    "DeFi",
+    "Solana",
+    "Next.js",
+    "React",
+    "TypeScript",
+  ],
+  authors: [{ name: "Joshua Idele", url: baseUrl }],
+  creator: "Joshua Idele",
+  publisher: "Joshua Idele",
+  robots: {
+    index: true,
+    follow: true,
+    googleBot: {
+      index: true,
+      follow: true,
+      "max-video-preview": -1,
+      "max-image-preview": "large",
+      "max-snippet": -1,
+    },
+  },
+  openGraph: {
+    type: "website",
+    locale: "en_US",
+    url: baseUrl,
+    siteName: "Joide",
+    title: "Joide - Blockchain & Software Developer",
+    description:
+      "Joshua Idele, popularly known as Joide, is a blockchain developer and software engineer. Building innovative solutions in Web3, DeFi, and modern web applications.",
+    images: [
+      {
+        url: "/og.png",
+        width: 1200,
+        height: 630,
+        alt: "Joide - Blockchain & Software Developer",
+      },
+    ],
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "Joide - Blockchain & Software Developer",
+    description:
+      "Joshua Idele, popularly known as Joide, is a blockchain developer and software engineer.",
+    images: ["/og.png"],
+    creator: "@joide",
+  },
   icons: {
-    icon: "/joidev.png",
+    icon: [
+      { url: "/favicon-light.ico", media: "(prefers-color-scheme: light)" },
+      { url: "/favicon-dark.ico", media: "(prefers-color-scheme: dark)" },
+      { url: "/favicon.ico" },
+    ],
+    apple: [{ url: "/apple-touch-icon.png" }],
+  },
+  manifest: "/site.webmanifest",
+  alternates: {
+    canonical: baseUrl,
+  },
+  verification: {
+    // Add your verification codes here when available
+    // google: "your-google-verification-code",
+    // yandex: "your-yandex-verification-code",
   },
 };
 

@@ -7,8 +7,64 @@ import Link from "next/link";
 import ReactMarkdown from "react-markdown";
 import rehypeRaw from "rehype-raw";
 import { getProject } from "../index";
+import type { Metadata } from "next";
 
 type Params = { params: Promise<{ slug: string }> };
+
+const baseUrl = process.env.NEXT_PUBLIC_BASE_URL || "https://joide.me";
+
+export async function generateMetadata({ params }: Params): Promise<Metadata> {
+  const { slug } = await params;
+  const project = getProject(slug);
+
+  if (!project) {
+    return {};
+  }
+
+  const url = `${baseUrl}/project/${slug}`;
+  const imageUrl = project.cover.startsWith("http")
+    ? project.cover
+    : `${baseUrl}${project.cover}`;
+
+  return {
+    title: project.title,
+    description: project.description,
+    keywords: [
+      ...project.tech,
+      project.category,
+      project.title,
+      "Web3",
+      "Blockchain",
+      "Software Development",
+    ],
+    authors: [{ name: "Joshua Idele", url: baseUrl }],
+    openGraph: {
+      type: "website",
+      url,
+      title: `${project.title} - ${project.subtitle}`,
+      description: project.description,
+      siteName: "Joide",
+      images: [
+        {
+          url: imageUrl,
+          width: 1200,
+          height: 630,
+          alt: project.title,
+        },
+      ],
+    },
+    twitter: {
+      card: "summary_large_image",
+      title: `${project.title} - ${project.subtitle}`,
+      description: project.description,
+      images: [imageUrl],
+      creator: "@joide",
+    },
+    alternates: {
+      canonical: url,
+    },
+  };
+}
 
 // Disable caching for project pages during development
 export const dynamic = "force-dynamic";
@@ -22,8 +78,36 @@ export default async function ProjectDetail({ params }: Params) {
     notFound();
   }
 
+  // Structured data for SEO
+  const jsonLd = {
+    "@context": "https://schema.org",
+    "@type": "SoftwareApplication",
+    name: project.title,
+    description: project.description,
+    image: project.cover.startsWith("http")
+      ? project.cover
+      : `${baseUrl}${project.cover}`,
+    applicationCategory: project.category,
+    operatingSystem: "Web",
+    offers: {
+      "@type": "Offer",
+      price: "0",
+      priceCurrency: "USD",
+    },
+    author: {
+      "@type": "Person",
+      name: "Joshua Idele",
+      url: baseUrl,
+    },
+    ...(project.liveUrl && { url: project.liveUrl }),
+  };
+
   return (
     <div className="flex flex-col min-h-screen overflow-x-hidden items-start bg-zinc-50 dark:bg-black">
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
+      />
       <Nav />
 
       {/* Hero Section */}

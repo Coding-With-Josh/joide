@@ -4,14 +4,15 @@ import Image from "next/image";
 import { notFound } from "next/navigation";
 import ReactMarkdown from "react-markdown";
 import rehypeRaw from "rehype-raw";
+import type { Metadata } from "next";
 
 type Params = { params: Promise<{ slug: string }> };
 
+const baseUrl = process.env.NEXT_PUBLIC_BASE_URL || "https://joide.me";
+
 async function getPost(slug: string) {
   const res = await fetch(
-    `${
-      process.env.NEXT_PUBLIC_BASE_URL || "http://localhost:3000"
-    }/api/blog/${slug}`,
+    `${baseUrl}/api/blog/${slug}`,
     {
       next: { revalidate: 60 },
     }
@@ -24,6 +25,55 @@ async function getPost(slug: string) {
   return res.json();
 }
 
+export async function generateMetadata({ params }: Params): Promise<Metadata> {
+  const { slug } = await params;
+  const post = await getPost(slug);
+
+  if (!post) {
+    return {};
+  }
+
+  const url = `${baseUrl}/blog/${slug}`;
+  const imageUrl = post.cover.startsWith("http")
+    ? post.cover
+    : `${baseUrl}${post.cover}`;
+
+  return {
+    title: post.title,
+    description: post.summary || post.description || `Read ${post.title} by Joide`,
+    keywords: post.tags || [],
+    authors: [{ name: "Joshua Idele", url: baseUrl }],
+    openGraph: {
+      type: "article",
+      url,
+      title: post.title,
+      description: post.summary || post.description,
+      publishedTime: post.date,
+      authors: ["Joshua Idele"],
+      tags: post.tags || [],
+      images: [
+        {
+          url: imageUrl,
+          width: 1200,
+          height: 630,
+          alt: post.title,
+        },
+      ],
+    },
+    twitter: {
+      card: "summary_large_image",
+      title: post.title,
+      description: post.summary || post.description,
+      images: [imageUrl],
+      creator: "@joide",
+    },
+    alternates: {
+      canonical: url,
+    },
+  };
+}
+
+
 export default async function BlogPost({ params }: Params) {
   const { slug } = await params;
   const post = await getPost(slug);
@@ -32,8 +82,31 @@ export default async function BlogPost({ params }: Params) {
     notFound();
   }
 
+  // Structured data for SEO
+  const jsonLd = {
+    "@context": "https://schema.org",
+    "@type": "BlogPosting",
+    headline: post.title,
+    description: post.summary || post.description,
+    image: post.cover.startsWith("http") ? post.cover : `${baseUrl}${post.cover}`,
+    datePublished: post.date,
+    author: {
+      "@type": "Person",
+      name: "Joshua Idele",
+      url: baseUrl,
+    },
+    publisher: {
+      "@type": "Person",
+      name: "Joshua Idele",
+    },
+  };
+
   return (
     <div className="flex flex-col min-h-screen overflow-x-hidden items-start bg-zinc-50 dark:bg-black">
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
+      />
       <Nav />
 
       {/* Hero Section */}
