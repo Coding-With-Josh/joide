@@ -1,6 +1,7 @@
 import { Suspense } from "react";
 import { BlogHero } from "@/components/sections/blog-hero";
 import { BlogCardsServer } from "@/components/sections/blog-cards-server";
+import { BlogCardsLoading } from "@/components/sections/blog-cards-loading";
 import { Nav } from "@/components/sections/nav";
 import React from "react";
 import type { Metadata } from "next";
@@ -38,7 +39,8 @@ export const metadata: Metadata = {
   twitter: {
     card: "summary_large_image",
     title: "Blog | Joide",
-    description: "Read articles and insights on blockchain development and Web3.",
+    description:
+      "Read articles and insights on blockchain development and Web3.",
     images: ["/og.png"],
   },
   alternates: {
@@ -46,12 +48,15 @@ export const metadata: Metadata = {
   },
 };
 
+// Enable static generation for better performance
+export const revalidate = 60;
+
 const Blog = () => {
   return (
     <div className="flex flex-col min-h-screen overflow-x-hidden items-start bg-zinc-50 dark:bg-black">
       <Nav />
       <BlogHero />
-      <Suspense fallback={null}>
+      <Suspense fallback={<BlogCardsLoading />}>
         <BlogCardsServer />
       </Suspense>
     </div>
@@ -59,4 +64,3 @@ const Blog = () => {
 };
 
 export default Blog;
-

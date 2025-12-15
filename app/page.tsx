@@ -1,27 +1,14 @@
 import { Suspense } from "react";
-import dynamic from "next/dynamic";
+import { Intro } from "@/components/sections/intro";
 import { CaseStudies } from "@/components/sections/case-studies";
 import { Achievements } from "@/components/sections/achievements";
+import { Stack } from "@/components/sections/stack";
+import { Contact } from "@/components/sections/contact";
 import { Footer } from "@/components/sections/footer";
+import { Nav } from "@/components/sections/nav";
 import { BlogCardsServer } from "@/components/sections/blog-cards-server";
+import { BlogCardsLoading } from "@/components/sections/blog-cards-loading";
 import type { Metadata } from "next";
-
-// Lazy load heavy client components
-const Nav = dynamic(() => import("@/components/sections/nav").then((mod) => ({ default: mod.Nav })), {
-  ssr: true, // Keep SSR for SEO
-});
-
-const Intro = dynamic(() => import("@/components/sections/intro").then((mod) => ({ default: mod.Intro })), {
-  ssr: true,
-});
-
-const Stack = dynamic(() => import("@/components/sections/stack").then((mod) => ({ default: mod.Stack })), {
-  ssr: true,
-});
-
-const Contact = dynamic(() => import("@/components/sections/contact").then((mod) => ({ default: mod.Contact })), {
-  ssr: true,
-});
 
 const baseUrl = process.env.NEXT_PUBLIC_BASE_URL || "https://joide.me";
 
@@ -65,6 +52,9 @@ export const metadata: Metadata = {
   },
 };
 
+// Enable static generation for better performance
+export const revalidate = 60;
+
 export default function Home() {
   // Structured data for SEO
   const jsonLd = {
@@ -91,24 +81,14 @@ export default function Home() {
       />
       <Nav />
       <main>
-        <Suspense fallback={null}>
-          <Intro />
-        </Suspense>
-        <Suspense fallback={null}>
-          <CaseStudies />
-        </Suspense>
-        <Suspense fallback={null}>
+        <Intro />
+        <CaseStudies />
+        <Achievements />
+        <Stack />
+        <Suspense fallback={<BlogCardsLoading />}>
           <BlogCardsServer />
         </Suspense>
-        <Suspense fallback={null}>
-          <Achievements />
-        </Suspense>
-        <Suspense fallback={null}>
-          <Stack />
-        </Suspense>
-        <Suspense fallback={null}>
-          <Contact />
-        </Suspense>
+        <Contact />
       </main>
       <Footer />
     </div>

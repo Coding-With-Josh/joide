@@ -3,6 +3,7 @@ import Link from "next/link";
 import { db } from "@/db/client";
 import { posts } from "@/db/schema";
 import { desc, eq } from "drizzle-orm";
+import { unstable_cache } from "next/cache";
 
 type Post = {
   id: number;
@@ -15,15 +16,31 @@ type Post = {
   cover: string;
 };
 
-async function getPosts(): Promise<Post[]> {
-  const data = await db
-    .select()
-    .from(posts)
-    .where(eq(posts.published, true))
-    .orderBy(desc(posts.createdAt))
-    .limit(20);
+const getCachedPosts = unstable_cache(
+  async (): Promise<Post[]> => {
+    try {
+      const data = await db
+        .select()
+        .from(posts)
+        .where(eq(posts.published, true))
+        .orderBy(desc(posts.createdAt))
+        .limit(20);
 
-  return data as Post[];
+      return data as Post[];
+    } catch (error) {
+      console.error("Error fetching posts:", error);
+      return [];
+    }
+  },
+  ["blog-posts"],
+  {
+    revalidate: 60, // Cache for 60 seconds
+    tags: ["blog-posts"],
+  }
+);
+
+async function getPosts(): Promise<Post[]> {
+  return getCachedPosts();
 }
 
 export const BlogCardsServer = async () => {
