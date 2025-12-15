@@ -166,7 +166,7 @@ export const BlogCards = () => {
                     className="object-cover transition-transform duration-300 group-hover:scale-105"
                     sizes="(min-width: 1024px) 33vw, 100vw"
                     priority={index < 2}
-                    loading={index < 2 ? "eager" : "lazy"}
+                    loading={index < 2 ? undefined : "lazy"}
                   />
                   <div className="absolute inset-0 bg-linear-to-b from-black/10 via-transparent to-black/30" />
 
