@@ -24,7 +24,7 @@ export const Nav = () => {
       document.body.style.overflow = "";
     };
   }, [open]);
-
+    
   return (
     <header className="sticky top-6 z-40 w-screen">
       <div
@@ -135,7 +135,7 @@ export const Nav = () => {
 
               <div className="mt-8">
                 <ThemeSwitcher className="w-fit" />
-              </div>
+    </div>
             </motion.div>
           </>
         )}

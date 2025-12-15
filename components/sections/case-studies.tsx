@@ -28,7 +28,7 @@ export const CaseStudies = () => {
       </div>
 
       <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-        {studies.map(({ slug, title, subtitle, cover }) => (
+        {studies.map(({ slug, title, subtitle, cover }, index) => (
           <Link key={slug} href={`/project/${slug}`}>
             <div className="overflow-hidden group cursor-pointer rounded-3xl">
               <div className="aspect-4/3 w-full overflow-hidden rounded-3xl relative transition-transform duration-300 group-hover:scale-[1.02]">
@@ -38,7 +38,8 @@ export const CaseStudies = () => {
                   fill
                   className="object-cover transition-transform duration-500 group-hover:scale-110"
                   sizes="(min-width: 1024px) 50vw, 100vw"
-                  priority={false}
+                  priority={index < 2}
+                  loading={index < 2 ? "eager" : "lazy"}
                 />
                 <div className="absolute inset-0 bg-linear-to-b from-black/60 via-black/30 to-transparent group-hover:from-black/70 transition-colors duration-300" />
                 <div className="absolute inset-x-0 top-0 flex items-start justify-between gap-3 px-4 py-4 md:px-5 md:py-5">

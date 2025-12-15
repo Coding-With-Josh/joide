@@ -149,7 +149,10 @@ export const BlogCards = () => {
 
         <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
           {posts.map(
-            ({ id, title, summary, date, readTime, tags, cover, slug }) => (
+            (
+              { id, title, summary, date, readTime, tags, cover, slug },
+              index
+            ) => (
               <Link
                 key={id}
                 href={`/blog/${slug}`}
@@ -162,6 +165,8 @@ export const BlogCards = () => {
                     fill
                     className="object-cover transition-transform duration-300 group-hover:scale-105"
                     sizes="(min-width: 1024px) 33vw, 100vw"
+                    priority={index < 2}
+                    loading={index < 2 ? "eager" : "lazy"}
                   />
                   <div className="absolute inset-0 bg-linear-to-b from-black/10 via-transparent to-black/30" />
 
