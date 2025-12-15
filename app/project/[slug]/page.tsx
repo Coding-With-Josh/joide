@@ -356,6 +356,8 @@ export default async function ProjectDetail({ params }: Params) {
                         fill
                         className="object-cover"
                         sizes="(min-width: 1024px) 50vw, 100vw"
+                        priority={idx < 2}
+                        loading={idx < 2 ? "eager" : "lazy"}
                       />
                     </div>
                   ))}
