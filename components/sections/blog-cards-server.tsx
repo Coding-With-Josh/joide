@@ -147,11 +147,16 @@ export const BlogCardsServer = async () => {
               { id, title, summary, date, readTime, tags, cover, slug },
               index
             ) => (
-              <Link
+              <div
                 key={id}
-                href={`/blog/${slug}`}
-                className="group relative overflow-hidden rounded-3xl border border-black/10 dark:border-white/15 bg-white dark:bg-neutral-900 shadow-[0_20px_80px_-50px_rgba(0,0,0,0.45)] transition-transform duration-200 hover:-translate-y-1"
+                style={{
+                  animation: `fadeInUp 0.6s ease-out ${index * 0.1}s both`,
+                }}
               >
+                <Link
+                  href={`/blog/${slug}`}
+                  className="group relative overflow-hidden rounded-3xl border border-black/10 dark:border-white/15 bg-white dark:bg-neutral-900 shadow-[0_20px_80px_-50px_rgba(0,0,0,0.45)] transition-transform duration-200 hover:-translate-y-1"
+                >
                 <div className="relative aspect-[4/3] w-full overflow-hidden">
                   <Image
                     src={cover}
@@ -193,6 +198,7 @@ export const BlogCardsServer = async () => {
                   </div>
                 </div>
               </Link>
+              </div>
             )
           )}
         </div>

@@ -1,6 +1,9 @@
+"use client";
+
 import { Icon } from "@iconify/react";
 import Link from "next/link";
 import React from "react";
+import { motion } from "motion/react";
 
 import { ThemeSwitcher } from "../ui/theme-switcher-footer";
 
@@ -25,7 +28,13 @@ const socials = [
 
 export const Footer = () => {
   return (
-    <footer className="w-full bg-black dark:bg-white dark:text-black text-white">
+    <motion.footer
+      initial={{ opacity: 0, y: 20 }}
+      whileInView={{ opacity: 1, y: 0 }}
+      viewport={{ once: true, margin: "-50px" }}
+      transition={{ duration: 0.6, ease: [0.16, 1, 0.3, 1] }}
+      className="w-full bg-black dark:bg-white dark:text-black text-white"
+    >
       <div className="flex flex-col gap-6 px-12 py-10 md:flex-row md:items-center md:justify-between md:gap-10">
         <div className="flex items-center gap-4">
           <h1 className="font-serif text-3xl font-bold">joide.fm</h1>
@@ -54,6 +63,6 @@ export const Footer = () => {
           </div>
         </div>
       </div>
-    </footer>
+    </motion.footer>
   );
 };

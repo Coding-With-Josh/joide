@@ -3,11 +3,18 @@
 import { ArrowRight, Calendar, Mail } from "lucide-react";
 import Link from "next/link";
 import React from "react";
+import { motion } from "motion/react";
 import { trackClick } from "@/components/tracking";
 
 export const Contact = () => {
   return (
-    <section className="w-full px-6 md:px-12 my-24 md:my-32">
+    <motion.section
+      initial={{ opacity: 0, y: 30 }}
+      whileInView={{ opacity: 1, y: 0 }}
+      viewport={{ once: true, margin: "-100px" }}
+      transition={{ duration: 0.6, ease: [0.16, 1, 0.3, 1] }}
+      className="w-full px-6 md:px-12 my-24 md:my-32"
+    >
       <div className="relative overflow-hidden rounded-3xl border border-black/5 dark:border-white/10 bg-white/80 dark:bg-neutral-900/80 backdrop-blur">
         <div className="pointer-events-none absolute inset-0">
           <div className="absolute -left-24 -top-24 h-64 w-64 rounded-full bg-orange-200/60 blur-3xl dark:bg-orange-400/20" />
@@ -65,6 +72,6 @@ export const Contact = () => {
           </div>
         </div>
       </div>
-    </section>
+    </motion.section>
   );
 };

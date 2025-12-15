@@ -8,6 +8,7 @@ import { Footer } from "@/components/sections/footer";
 import { Nav } from "@/components/sections/nav";
 import { BlogCardsServer } from "@/components/sections/blog-cards-server";
 import { BlogCardsLoading } from "@/components/sections/blog-cards-loading";
+import { BlogCardsAnimated } from "@/components/sections/blog-cards-animated";
 import type { Metadata } from "next";
 
 const baseUrl = process.env.NEXT_PUBLIC_BASE_URL || "https://joide.me";
@@ -86,7 +87,9 @@ export default function Home() {
         <Achievements />
         <Stack />
         <Suspense fallback={<BlogCardsLoading />}>
-          <BlogCardsServer />
+          <BlogCardsAnimated>
+            <BlogCardsServer />
+          </BlogCardsAnimated>
         </Suspense>
         <Contact />
       </main>

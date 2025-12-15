@@ -2,6 +2,7 @@ import { Suspense } from "react";
 import { BlogHero } from "@/components/sections/blog-hero";
 import { BlogCardsServer } from "@/components/sections/blog-cards-server";
 import { BlogCardsLoading } from "@/components/sections/blog-cards-loading";
+import { BlogCardsAnimated } from "@/components/sections/blog-cards-animated";
 import { Nav } from "@/components/sections/nav";
 import React from "react";
 import type { Metadata } from "next";
@@ -57,7 +58,9 @@ const Blog = () => {
       <Nav />
       <BlogHero />
       <Suspense fallback={<BlogCardsLoading />}>
-        <BlogCardsServer />
+        <BlogCardsAnimated>
+          <BlogCardsServer />
+        </BlogCardsAnimated>
       </Suspense>
     </div>
   );

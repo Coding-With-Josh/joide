@@ -1,6 +1,15 @@
+"use client";
+
+import { motion } from "motion/react";
+
 export const BlogHero = () => {
   return (
-    <section className="w-full px-6 md:px-12 mt-20 md:mt-28">
+    <motion.section
+      initial={{ opacity: 0, y: 30 }}
+      animate={{ opacity: 1, y: 0 }}
+      transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
+      className="w-full px-6 md:px-12 mt-20 md:mt-28"
+    >
       <div className="grid grid-cols-1 lg:grid-cols-[1.1fr_0.9fr] gap-10 items-start">
         <div className="flex flex-col gap-4 md:gap-5 text-base md:text-lg tracking-tight text-muted-foreground">
           <p className="text-sm uppercase tracking-tighter text-muted-foreground">
@@ -19,7 +28,7 @@ export const BlogHero = () => {
           </h1>
         </div>
       </div>
-    </section>
+    </motion.section>
   );
 };
 
