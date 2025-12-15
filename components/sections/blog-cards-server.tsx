@@ -1,8 +1,8 @@
-"use client";
-
 import Image from "next/image";
 import Link from "next/link";
-import { useEffect, useState } from "react";
+import { db } from "@/db/client";
+import { posts } from "@/db/schema";
+import { desc, eq } from "drizzle-orm";
 
 type Post = {
   id: number;
@@ -15,41 +15,19 @@ type Post = {
   cover: string;
 };
 
-export const BlogCards = () => {
-  const [posts, setPosts] = useState<Post[]>([]);
-  const [loading, setLoading] = useState(true);
+async function getPosts(): Promise<Post[]> {
+  const data = await db
+    .select()
+    .from(posts)
+    .where(eq(posts.published, true))
+    .orderBy(desc(posts.createdAt))
+    .limit(20);
 
-  useEffect(() => {
-    const fetchPosts = async () => {
-      try {
-        const res = await fetch("/api/blog");
-        if (res.ok) {
-          const data = await res.json();
-          setPosts(data);
-        }
-      } catch (err) {
-        console.error("Failed to fetch posts:", err);
-      } finally {
-        setLoading(false);
-      }
-    };
-    fetchPosts();
-  }, []);
+  return data as Post[];
+}
 
-  if (loading) {
-    return (
-      <section className="w-full px-6 md:px-12 my-16 md:my-24">
-        <div className="flex items-center justify-center py-16">
-          <div className="flex flex-col items-center gap-3">
-            <div className="w-8 h-8 border-2 border-black/20 dark:border-white/20 border-t-black dark:border-t-white rounded-full animate-spin" />
-            <p className="text-sm text-muted-foreground tracking-tighter">
-              Loading posts...
-            </p>
-          </div>
-        </div>
-      </section>
-    );
-  }
+export const BlogCardsServer = async () => {
+  const posts = await getPosts();
 
   if (posts.length === 0) {
     return (
@@ -77,7 +55,6 @@ export const BlogCards = () => {
                   viewBox="0 0 24 24"
                   className="text-black/70 dark:text-white/60"
                 >
-                  {/* Book/Document Icon */}
                   <path
                     d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"
                     stroke="currentColor"
@@ -102,7 +79,6 @@ export const BlogCards = () => {
                     className="opacity-60"
                   />
                 </svg>
-                {/* Subtle glow effect */}
                 <div className="absolute inset-0 bg-black/5 dark:bg-white/5 rounded-full blur-xl animate-pulse" />
               </div>
               <h4 className="text-xl md:text-2xl font-serif font-semibold tracking-tight mb-2">
@@ -132,6 +108,7 @@ export const BlogCards = () => {
       </section>
     );
   }
+
   return (
     <section className="w-full px-6 md:px-12 my-16 md:my-24">
       <div className="flex flex-col gap-6">
@@ -206,3 +183,4 @@ export const BlogCards = () => {
     </section>
   );
 };
+

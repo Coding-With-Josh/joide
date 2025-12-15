@@ -4,7 +4,19 @@ import { NextRequest, NextResponse } from "next/server";
 
 export async function POST(request: NextRequest) {
   try {
-    const body = await request.json();
+    // Handle both JSON and Blob (from sendBeacon)
+    let body;
+    const contentType = request.headers.get("content-type");
+    
+    if (contentType?.includes("application/json")) {
+      body = await request.json();
+    } else {
+      // Handle Blob from sendBeacon
+      const blob = await request.blob();
+      const text = await blob.text();
+      body = JSON.parse(text);
+    }
+
     const { eventType, metadata } = body;
 
     if (!eventType) {
@@ -14,9 +26,12 @@ export async function POST(request: NextRequest) {
       );
     }
 
-    await db.insert(metrics).values({
+    // Don't await - fire and forget for better performance
+    db.insert(metrics).values({
       eventType,
       metadata: metadata || {},
+    }).catch((err) => {
+      console.error("Error tracking metric:", err);
     });
 
     return NextResponse.json({ success: true });

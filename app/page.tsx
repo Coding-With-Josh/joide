@@ -1,11 +1,27 @@
-import { Intro } from "@/components/sections/intro";
+import { Suspense } from "react";
+import dynamic from "next/dynamic";
 import { CaseStudies } from "@/components/sections/case-studies";
-import { Contact } from "@/components/sections/contact";
-import { Nav } from "@/components/sections/nav";
 import { Achievements } from "@/components/sections/achievements";
-import { Stack } from "@/components/sections/stack";
 import { Footer } from "@/components/sections/footer";
+import { BlogCardsServer } from "@/components/sections/blog-cards-server";
 import type { Metadata } from "next";
+
+// Lazy load heavy client components
+const Nav = dynamic(() => import("@/components/sections/nav").then((mod) => ({ default: mod.Nav })), {
+  ssr: true, // Keep SSR for SEO
+});
+
+const Intro = dynamic(() => import("@/components/sections/intro").then((mod) => ({ default: mod.Intro })), {
+  ssr: true,
+});
+
+const Stack = dynamic(() => import("@/components/sections/stack").then((mod) => ({ default: mod.Stack })), {
+  ssr: true,
+});
+
+const Contact = dynamic(() => import("@/components/sections/contact").then((mod) => ({ default: mod.Contact })), {
+  ssr: true,
+});
 
 const baseUrl = process.env.NEXT_PUBLIC_BASE_URL || "https://joide.me";
 
@@ -75,11 +91,24 @@ export default function Home() {
       />
       <Nav />
       <main>
-        <Intro />
-        <CaseStudies />
-        <Achievements />
-        <Stack />
-        <Contact />
+        <Suspense fallback={null}>
+          <Intro />
+        </Suspense>
+        <Suspense fallback={null}>
+          <CaseStudies />
+        </Suspense>
+        <Suspense fallback={null}>
+          <BlogCardsServer />
+        </Suspense>
+        <Suspense fallback={null}>
+          <Achievements />
+        </Suspense>
+        <Suspense fallback={null}>
+          <Stack />
+        </Suspense>
+        <Suspense fallback={null}>
+          <Contact />
+        </Suspense>
       </main>
       <Footer />
     </div>

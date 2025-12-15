@@ -1,5 +1,6 @@
+import { Suspense } from "react";
 import { BlogHero } from "@/components/sections/blog-hero";
-import { BlogCards } from "@/components/sections/blog-cards";
+import { BlogCardsServer } from "@/components/sections/blog-cards-server";
 import { Nav } from "@/components/sections/nav";
 import React from "react";
 import type { Metadata } from "next";
@@ -50,7 +51,9 @@ const Blog = () => {
     <div className="flex flex-col min-h-screen overflow-x-hidden items-start bg-zinc-50 dark:bg-black">
       <Nav />
       <BlogHero />
-      <BlogCards />
+      <Suspense fallback={null}>
+        <BlogCardsServer />
+      </Suspense>
     </div>
   );
 };

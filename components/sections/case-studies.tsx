@@ -39,7 +39,7 @@ export const CaseStudies = () => {
                   className="object-cover transition-transform duration-500 group-hover:scale-110"
                   sizes="(min-width: 1024px) 50vw, 100vw"
                   priority={index < 2}
-                  loading={index < 2 ? undefined : "lazy"}
+                  {...(index >= 2 && { loading: "lazy" })}
                 />
                 <div className="absolute inset-0 bg-linear-to-b from-black/60 via-black/30 to-transparent group-hover:from-black/70 transition-colors duration-300" />
                 <div className="absolute inset-x-0 top-0 flex items-start justify-between gap-3 px-4 py-4 md:px-5 md:py-5">

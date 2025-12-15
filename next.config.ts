@@ -21,6 +21,19 @@ const nextConfig: NextConfig = {
   typescript: {
     ignoreBuildErrors: true,
   },
+  // Performance optimizations
+  experimental: {
+    optimizePackageImports: [
+      "@iconify/react",
+      "lucide-react",
+      "motion/react",
+      "recharts",
+    ],
+  },
+  // Compress responses
+  compress: true,
+  // Optimize production builds
+  swcMinify: true,
 };
 
 export default nextConfig;

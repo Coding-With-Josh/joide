@@ -13,6 +13,8 @@ const sans = Instrument_Sans({
   subsets: ["latin"],
   weight: ["400", "700"],
   style: ["normal", "italic"],
+  display: "swap", // Optimize font loading
+  preload: true,
 });
 
 const serif = Instrument_Serif({
@@ -20,11 +22,14 @@ const serif = Instrument_Serif({
   subsets: ["latin"],
   weight: "400",
   style: ["normal", "italic"],
+  display: "swap", // Optimize font loading
+  preload: true,
 });
 
 const mono = Geist_Mono({
   variable: "--font-mono",
   subsets: ["latin"],
+  display: "swap", // Optimize font loading
 });
 
 const baseUrl = process.env.NEXT_PUBLIC_BASE_URL || "https://joide.me";
