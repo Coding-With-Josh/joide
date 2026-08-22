@@ -4,7 +4,7 @@ export const AboutHero = () => {
       <div className="grid grid-cols-1 lg:grid-cols-[1.1fr_0.9fr] gap-10 items-start">
         <div className="flex flex-col gap-4 md:gap-5 text-base md:text-lg tracking-tight text-muted-foreground">
           <p>
-            I am a 15 year old blockchain developer with a keen interest in
+            I am a crazy blockchain developer with a keen interest in
             building innovative solutions that make life easier for everyone,
             especially fellow developers.
           </p>
