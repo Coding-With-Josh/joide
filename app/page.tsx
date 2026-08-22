@@ -81,7 +81,7 @@ export default function Home() {
         dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
       />
       <Nav />
-      <main>
+      <main className="overflow-hidden">
         <Intro />
         <CaseStudies />
         <Achievements />
