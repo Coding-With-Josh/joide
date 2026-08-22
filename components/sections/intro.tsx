@@ -11,7 +11,7 @@ export const Intro = () => {
       initial={{ opacity: 0, y: 30 }}
       animate={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
-      className="w-full px-6 md:px-12 mt-25 md:mt-40 flex flex-col gap-6 md:gap-8"
+      className="w-full px-6 md:px-12 mt-25 md:mt-40 flex flex-col gap-6 md:gap-8 overflow-hidden"
     >
         {/* <Image
         src={require("@/assets/me.jpg")}
