@@ -27,7 +27,7 @@ export const Intro = () => {
           <h1 className="text-4xl sm:text-5xl md:text-[90px] leading-tight md:leading-none max-w-3xl md:max-w-5xl tracking-tighter mt-2 md:mt-6 text-balance">
             A{" "}
             <span className="text-5xl sm:text-6xl md:text-[100px] tracking-tighter font-medium">
-              15
+              crazy
             </span>{" "}
             year old blockchain developer focusing on building viable
             solutions...
